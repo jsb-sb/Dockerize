@@ -1,0 +1,29 @@
+version: '3.7'
+
+services: 
+  backend:
+    build:
+      target: 'develop-stage'
+    container_name: private-backend-dev
+    ports: 
+      - ${BACKEND_DEV_PORT:-8000}:8000
+    volumes: 
+      - './backend:/var/www'
+    depends_on: 
+      - db
+
+  db:
+    image: mysql:8.0.22
+    container_name: private-db-dev
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+      MYSQL_ONETIME_PASSWORD: 'yes'
+      MYSQL_DATABASE: ${DB_DEV_DATABASE:-private}
+      MYSQL_USER: ${DB_DEV_USER:-private}
+      MYSQL_PASSWORD: ${DB_DEV_PASSWORD:-pa55w0rd!}
+    ports:
+      - ${DB_DEV_PORT:-33060}:3306
+    volumes: 
+      - ${DB_DATA_DIR:-./db}/data:/var/lib/mysql:delegated
+      - ${DB_DATA_DIR:-./db}/conf:/etc/mysql/conf.d
