@@ -1,0 +1,3 @@
+[submodule "Idus"]
+	path = Idus
+	url = https://github.com/jsb-sb/Idus.git
