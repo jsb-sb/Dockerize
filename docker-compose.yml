@@ -3,7 +3,7 @@ version: '3.7'
 services: 
   backend:
     build:
-      context: ./backend
+      context: ./Idus
     env_file: 
-      - ./backend/.env
+      - ./Idus/.env
     working_dir: /var/www
